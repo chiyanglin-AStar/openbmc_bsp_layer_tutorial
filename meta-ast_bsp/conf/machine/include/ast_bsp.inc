@@ -1,3 +1,21 @@
+UBOOT_ARCH ?= "arm"
+
+#DISTRO_FEATURES ?= "ipv4 ipv6"
+
+SOC_FAMILY = "aspeed-g5"
+#include conf/machine/include/soc-family.inc
+MACHINEOVERRIDES .= ":ast_bsp"
+DEFAULTTUNE ?= "arm1176jzs"
+
+PREFERRED_PROVIDER_virtual/kernel ?= "linux-obmc"
+
+PREFERRED_PROVIDER_virtual/bootloader ?= "u-boot-ast_bsp"
+PREFERRED_PROVIDER_u-boot ?= "u-boot-ast_bsp"
+PREFERRED_PROVIDER_u-boot-fw-utils ?= "u-boot-fw-utils-ast_bsp"
+
+UBOOT_ENTRYPOINT ?= "0x80001000"
+UBOOT_LOADADDRESS ?= "0x80001000"
+
 MACHINE_FEATURES += "\
         obmc-phosphor-fan-mgmt \
         obmc-phosphor-chassis-mgmt \
