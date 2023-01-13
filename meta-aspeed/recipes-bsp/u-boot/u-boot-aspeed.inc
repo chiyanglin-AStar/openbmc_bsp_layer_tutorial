@@ -37,6 +37,8 @@ def find_cfgs(d):
     return sources_list
 
 do_configure () {
+    bbwarn "uboot config = ${UBOOT_CONFIG} in u-boot-aspeed do_configure"
+    bbwarn "uboot machine = ${UBOOT_MACHINE} in u-boot-aspeed do_configure"
     if [ -z "${UBOOT_CONFIG}" ]; then
         if [ -n "${UBOOT_MACHINE}" ]; then
             oe_runmake -C ${S} O=${B} ${UBOOT_MACHINE}
@@ -49,6 +51,8 @@ do_configure () {
 }
 
 do_compile () {
+	bbwarn "cross compile = $(CROSS_COMPILE)  in u-boot-aspeed do_compile"
+        bbwarn "config = ${config} in u-boot-aspeed do_compile"
 	if [ "${@bb.utils.filter('DISTRO_FEATURES', 'ld-is-gold', d)}" ]; then
 		sed -i 's/$(CROSS_COMPILE)ld$/$(CROSS_COMPILE)ld.bfd/g' ${S}/config.mk
 	fi
@@ -93,6 +97,8 @@ do_compile () {
 }
 
 do_install () {
+    bbwarn "uboot binary = ${UBOOT_BINARY}  in u-boot-aspeed do_install"
+    bbwarn "uboot elf = ${UBOOT_ELF} in u-boot-aspeed do_install"
     if [ -n "${UBOOT_CONFIG}" ]
     then
         for config in ${UBOOT_MACHINE}; do
